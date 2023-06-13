@@ -1,6 +1,6 @@
 <?php
 
-class User
+class UserNew
 {
     public function __construct(protected string $name) {}
 }
@@ -12,10 +12,10 @@ class Plan
 
 class Signup
 {
-    public function __construct(protected User $user, protected Plan $plan){}
+    public function __construct(protected UserNew $user, protected Plan $plan){}
 }
 
-$user = new User('John Doe');
+$user = new UserNew('John Doe');
 $plan = new Plan('montly');
 
 $signup = new Signup($user, $plan);
