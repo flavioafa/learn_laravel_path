@@ -5,7 +5,7 @@
 
 <body>
     <article>
-        <h1><a href="/post">My First post</a></h1>
+        <h1><a href="/posts/my-first-post">My First post</a></h1>
         <p>
             It is a long established fact that a reader will be distracted by the readable content of a page when
             looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
@@ -16,7 +16,7 @@
         </p>
     </article>
     <article>
-        <h1><a href="/post">My Second post</a></h1>
+        <h1><a href="/posts/my-second-post">My Second post</a></h1>
         <p>
             It is a long established fact that a reader will be distracted by the readable content of a page when
             looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
@@ -27,7 +27,7 @@
         </p>
     </article>
     <article>
-        <h1><a href="/post">My Third post</a></h1>
+        <h1><a href="/posts/my-third-post">My Third post</a></h1>
         <p>
             It is a long established fact that a reader will be distracted by the readable content of a page when
             looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
