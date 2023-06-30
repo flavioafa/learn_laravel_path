@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/users', function () {
+    sleep(5);
     return inertia('Users');
 });
 
