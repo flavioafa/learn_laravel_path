@@ -1,8 +1,11 @@
 <template>
     <Head title="Users" />
-    <h1 class="text-4xl font-bold">
-        Users
-    </h1>
+    <div class="flex justify-between mb-6">
+        <h1 class="text-3xl">
+            Users
+        </h1>
+        <input v-model="search" type="text" placeholder="Search..." class="border px-2 rounded-lg" />
+    </div>
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -33,8 +36,21 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue';
 import Pagination from '../Shared/Pagination.vue';
-defineProps({
-    users: Object
+import { router } from '@inertiajs/vue3';
+
+let props = defineProps({
+    users: Object,
+    filters: Object
+})
+
+let search = ref(props.filters.search) //Seta o valor do campo para o que foi digitado e volta do servidor
+
+watch(search, value => {
+    router.get('/users', {search: value}, {
+        preserveState: true, //Mantem o estado do componente
+        replace: true //Evita que a cada caractere digitado se crie um histórico no navegador
+    })
 })
 </script>
