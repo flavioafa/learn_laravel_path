@@ -3,9 +3,3 @@
         Settings
     </h1>
 </template>
-
-<script setup>
-import Layout from '../Shared/Layout.vue';
-
-defineOptions({ layout: Layout })
-</script>
