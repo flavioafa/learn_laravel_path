@@ -43,6 +43,7 @@
 import { ref, watch } from 'vue';
 import Pagination from '../../Shared/Pagination.vue';
 import { router } from '@inertiajs/vue3';
+import debounce from 'lodash/debounce'
 
 let props = defineProps({
     users: Object,
@@ -51,10 +52,10 @@ let props = defineProps({
 
 let search = ref(props.filters.search) //Seta o valor do campo para o que foi digitado e volta do servidor
 
-watch(search, value => {
+watch(search, debounce(function (value) {
     router.get('/users', {search: value}, {
         preserveState: true, //Mantem o estado do componente
         replace: true //Evita que a cada caractere digitado se crie um histórico no navegador
     })
-})
+},500))
 </script>
