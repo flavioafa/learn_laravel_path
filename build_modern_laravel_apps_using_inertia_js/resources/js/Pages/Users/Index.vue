@@ -5,7 +5,7 @@
             <h1 class="text-3xl">
                 Users
             </h1>
-            <Link href="/users/create" class="text-blue-500 text-sm ml-3">New User</Link>
+            <Link v-if="can.createUser" href="/users/create" class="text-blue-500 text-sm ml-3">New User</Link>
 
         </div>
         <input v-model="search" type="text" placeholder="Search..." class="border px-2 rounded-lg" />
@@ -26,7 +26,7 @@
                             <tr v-for="user in users.data" :key="user.id" class="border-b dark:border-neutral-500">
                                 <td class="whitespace-nowrap px-6 py-4 font-medium">{{ user.id }}</td>
                                 <td class="whitespace-nowrap px-6 py-4">{{ user.name }}</td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td v-if="user.can.edit" class="whitespace-nowrap px-6 py-4">
                                     <Link :href="`/users/${user.id}/edit`">Edit</Link>
                                 </td>
                             </tr>
@@ -47,7 +47,8 @@ import debounce from 'lodash/debounce'
 
 let props = defineProps({
     users: Object,
-    filters: Object
+    filters: Object,
+    can: Object
 })
 
 let search = ref(props.filters.search) //Seta o valor do campo para o que foi digitado e volta do servidor

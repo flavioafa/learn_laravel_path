@@ -24,15 +24,21 @@ Route::middleware('auth:sanctum')->group(function () {
             ->withQueryString()
             ->through(fn($user) => [
                 'id' => $user->id,
-                'name' => $user->name
+                'name' => $user->name,
+                'can' => [
+                    'edit' => auth()->user()->can('edit', $user) //Authorization pode ser incluida por linha
+                ]
             ]),
-            'filters' => request()->only(['search']) //Retorna do servidor o que foi digitado
+            'filters' => request()->only(['search']), //Retorna do servidor o que foi digitado
+            'can' => [
+                'createUser' => auth()->user()->can('create', User::class) //Authorization global
+            ]
         ]);
     });
 
     Route::get('/users/create', function () {
         return inertia('Users/Create');
-    });
+    })->can('create', 'App\Models\User');
 
     Route::post('/users', function () {
         $attributes = request()->validate([
