@@ -2,21 +2,18 @@
     <nav class="mt-6">
         <ul class="list-disc">
             <li>
-                <Link class="text-blue-500 hover:underline" href="/">Home</Link>
+                <NavLink href="/" :active="$page.component === 'Home'">Home</NavLink>
             </li>
             <li>
-                <Link class="text-blue-500 hover:underline" href="/users">Users</Link>
+                <NavLink href="/users" :active="$page.component === 'Users'">Users</NavLink>
             </li>
             <li>
-                <Link class="text-blue-500 hover:underline" href="/settings">Settings</Link>
-            </li>
-            <li>
-                <Link class="text-blue-500 hover:underline" href="/logout" method="post" as="button">Log Out</Link>
+                <NavLink href="/settings" :active="$page.component === 'Settings'">Settings</NavLink>
             </li>
         </ul>
     </nav>
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import NavLink from '../Shared/NavLink.vue'
 </script>
