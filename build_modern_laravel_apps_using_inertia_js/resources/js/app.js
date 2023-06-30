@@ -1,5 +1,5 @@
 import { createApp, h } from "vue";
-import { createInertiaApp } from "@inertiajs/vue3";
+import { Link, createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 
 //Link interessante
@@ -31,6 +31,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            .component('Link', Link) //Registro global de componente
             .mount(el);
     },
 });
