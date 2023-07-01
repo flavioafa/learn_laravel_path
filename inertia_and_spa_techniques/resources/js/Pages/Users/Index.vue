@@ -64,10 +64,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import Pagination from '@/Shared/Pagination.vue'
+import { ref, watch, defineAsyncComponent } from 'vue'
+// import Pagination from '@/Shared/Pagination.vue'
 import { router } from '@inertiajs/vue3'
 import debounce from 'lodash/debounce'
+
+//Exemplo de como importar um componente de forma separada do arquivo, pode ser útil
+let Pagination = defineAsyncComponent(() => import('@/Shared/Pagination.vue'))
 
 let props = defineProps({
     users: Object,
