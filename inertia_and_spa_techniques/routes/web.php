@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -8,51 +11,20 @@ Route::get('login', [LoginController::class, 'create'])->name('login');
 Route::post('login', [LoginController::class, 'store']);
 Route::post('logout', [LoginController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function ()
+{
 
-    Route::get('/', function () {
-        return inertia('Home');
-    });
+    Route::get('/', [HomeController::class, 'index']);
 
-    Route::get('/users', function () {
-        return inertia('Users/Index', [
-            'users' => User::query()
-            ->when(request('search'), function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%");
-            })
-            ->paginate(10)
-            ->withQueryString()
-            ->through(fn($user) => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'can' => [
-                    'edit' => auth()->user()->can('edit', $user) //Authorization pode ser incluida por linha
-                ]
-            ]),
-            'filters' => request()->only(['search']), //Retorna do servidor o que foi digitado
-            'can' => [
-                'createUser' => auth()->user()->can('create', User::class) //Authorization global
-            ]
-        ]);
-    });
-
-    Route::get('/users/create', function () {
-        return inertia('Users/Create');
-    })->can('create', 'App\Models\User');
-
-    Route::post('/users', function () {
-        $attributes = request()->validate([
-            'name' => 'required',
-            'email' => ['required', 'email'],
-            'password' => 'required'
-        ]);
-        User::create($attributes);
-        return redirect('/users');
+    Route::controller(UserController::class)->group(function ()
+    {
+        Route::get('/users', 'index');
+        Route::get('/users/create', 'create')->can('create', 'App\Models\User');
+        Route::post('/users', 'store');
+        Route::get('/users/{user}', 'show');
     });
 
 
-    Route::get('/settings', function () {
-        return inertia('Settings');
-    });
+
+    Route::get('/settings', [SettingsController::class, 'index']);
 });
-

@@ -43,7 +43,9 @@
                                     {{ user.id }}
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    {{ user.name }}
+                                    <Link :href="`/users/${user.id}`">{{
+                                        user.name
+                                    }}</Link>
                                 </td>
                                 <td
                                     v-if="user.can.edit"
