@@ -28,7 +28,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $visible = ['*'];
+    // protected $visible = ['*'];
 
     /**
      * The attributes that should be cast.

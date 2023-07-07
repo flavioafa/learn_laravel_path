@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,20 +14,7 @@ class UserController extends Controller
     public function index()
     {
         return inertia('Users/Index', [
-            'users' => User::query()
-                ->when(request('search'), function ($query, $search)
-                {
-                    $query->where('name', 'like', "%{$search}%");
-                })
-                ->paginate(10)
-                ->withQueryString()
-                ->through(fn ($user) => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'can' => [
-                        'edit' => auth()->user()->can('edit', $user) //Authorization pode ser incluida por linha
-                    ]
-                ]),
+            'users' => UserResource::collection(User::query()->paginate(50)->withQueryString()),
             'filters' => request()->only(['search']), //Retorna do servidor o que foi digitado
             'can' => [
                 'createUser' => auth()->user()->can('create', User::class) //Authorization global
@@ -62,7 +50,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         return inertia('Users/Show', [
-            'user' => $user->only(['name', 'email', 'created_at'])
+            'user' => UserResource::make($user)
         ]);
     }
 

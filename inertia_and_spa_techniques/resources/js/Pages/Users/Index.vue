@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <Pagination :links="users.links" class="mt-6" />
+    <Pagination :links="users.meta.links" class="mt-6" />
 </template>
 
 <script setup>
