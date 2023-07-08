@@ -8,38 +8,17 @@
     </Head>
     <h1 class="text-4xl font-bold">Blog</h1>
 
-    <pre>
-        <code>
-            class Example
-            {
-                public function __construct()
-                {
-                    //
-                }
-            }
-        </code>
-    </pre>
-    <br />
-    <div id="#example2">
-        <pre>
-            <code ref="code">
-                class ExampleNew
-                {
-                    public function __construct()
-                    {
-                        //
-                    }
-                }
-            </code>
-        </pre>
-    </div>
+    <Highlight :code="snippet" />
 </template>
 
-<script>
-import { highlightElement, highlight } from '@/Services/SintaxHighlighting'
-export default {
-    mounted() {
-        highlightElement(this.$refs.code)
+<script setup>
+import Highlight from '@/Components/Highlight.vue'
+let snippet = `
+class Example
+{
+    public function __construct()
+    {
+        //
     }
-}
+}`.trim()
 </script>
