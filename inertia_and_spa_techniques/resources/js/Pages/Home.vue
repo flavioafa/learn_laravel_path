@@ -7,6 +7,7 @@
         />
     </Head>
     <h1 class="text-4xl font-bold">Blog</h1>
+    <br />
 
     <Highlight :code="snippet" />
 </template>
