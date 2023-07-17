@@ -66,10 +66,11 @@
 </template>
 
 <script setup>
-import { ref, watch, defineAsyncComponent } from 'vue'
+import { ref, watch, defineAsyncComponent, onMounted } from 'vue'
 // import Pagination from '@/Shared/Pagination.vue'
 import { router } from '@inertiajs/vue3'
 import debounce from 'lodash/debounce'
+import {useCurrentUser} from '@/Composables/useCurrentUser'
 
 //Exemplo de como importar um componente de forma separada do arquivo, pode ser útil
 let Pagination = defineAsyncComponent(() => import('@/Shared/Pagination.vue'))
@@ -81,6 +82,11 @@ let props = defineProps({
 })
 
 let search = ref(props.filters.search) //Seta o valor do campo para o que foi digitado e volta do servidor
+
+onMounted(() => {
+    //Apenas um exemplo de uso do Model através de um composable
+    console.log(useCurrentUser().isALifer())
+}),
 
 watch(
     search,
